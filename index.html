@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" id="header">
+                <h1>
+                    Where's My Train!?
+                </h1>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 trainBox">
+                <div class="row">
+                    <div class="col-md-12 boxLead">
+                        <P>
+                            Current Train Schedule
+                        </P>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="scheduleTable">
+                        <br>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Train Name</th>
+                                <th>Destination</th> 
+                                <th>Frequency (min)</th>
+                                <th>Next Arrival</th>
+                                <th>Minutes Away</th>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 trainBox">
+                <div class="row">
+                    <div class="col-md-12 boxLead">
+                        <p>
+                            Add Train
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form>
+                            Train Name
+                            <br>
+                            <input type="text" name="train-name" id="train-name">
+                            <br><br>
+                            Destination
+                            <br>
+                            <input type="text" name="destination" id="destination">
+                            <br><br>
+                            First Train Time (HH:mm - military time)
+                            <br>
+                            <input type="text" name="first-train" id="first-train-time">
+                            <br><br>
+                            Frequency (minutes)
+                            <br>
+                            <input type="text" name="frequency" id="frequency">
+                            <br><br>
+                            <input type="submit" name="Submit" value="Submit" id="submitButton">
+                            </form>
+                            <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" href="assets/javascript/app.js"></script>
+</html>

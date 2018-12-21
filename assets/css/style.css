@@ -1,0 +1,35 @@
+.trainBox {
+    border-color: blue;
+    border-style:solid;
+    border-width: 3px;
+    border-radius: 5px;
+    margin-bottom:5px;
+}
+
+.boxLead {
+    background:blue;
+    color:white;
+    border:none;
+    padding-top:7px;
+}
+
+#header {
+    background: brown;
+    color:white;
+    text-align: center;
+    padding:40px;
+    border-radius: 5px;
+}
+
+input {
+    border-radius:5px;
+}
+
+th {
+    font-weight: bold;
+}
+
+#submitButton {
+    background: blue;
+    color: white;
+}
