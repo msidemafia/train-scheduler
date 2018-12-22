@@ -1,81 +1,77 @@
 
-  var config = {
+var config = {
     apiKey: "AIzaSyDvLx8gO3K6NCnaccKbJRiU0sSXvQd8pkI",
     authDomain: "train-scheduler-60d30.firebaseapp.com",
     databaseURL: "https://train-scheduler-60d30.firebaseio.com",
     projectId: "train-scheduler-60d30",
-    storageBucket: "",
+    storageBucket: "train-scheduler-60d30.appspot.com",
     messagingSenderId: "617738540517"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var database = firebase.database();
 
-$("#submitButton").on("click", function(event) {
-  event.preventDefault();
+$(document).ready(function () {
+    $("#submitButton").on("click", function (event) {
+        event.preventDefault();
 
-  var trainName = $("#train-name").val().trim();
-  var trainDestination = $("#destination").val().trim();
-  var firstTrain = moment($("#first-train-time").val().trim(), "HH:mm").format("X");
-  var frequency = $("#frequency").val().trim();
+        var trainName = $("#train-name").val().trim();
+        var trainDestination = $("#destination").val().trim();
+        var firstTrain = moment($("#first-train-time").val().trim(), "HH:mm").format("");
+        var frequency = $("#frequency").val().trim();
+        var newTrain = {
+            name: trainName,
+            destination: trainDestination,
+            time: firstTrain,
+            frequency: frequency
+        };
 
-  var newTrain = {
-    name: trainName,
-    destination: trainDestination,
-    time: firstTrain,
-    frequency: frequency
-  };
+        database.ref().push(newTrain);
 
-  database.ref().push(newTrain);
+        console.log(newTrain.name);
+        console.log(newTrain.destination);
+        console.log(newTrain.time);
+        console.log(newTrain.frequency);
 
-  console.log(newTrain.name);
-  console.log(newTrain.destination);
-  console.log(newTrain.time);
-  console.log(newTrain.frequency);
-
-  $("#train-name").val("");
-  $("#destination").val("");
-  $("#first-train-time").val("");
-  $("#frequency").val("");
+        $("#train-name").val("");
+        $("#destination").val("");
+        $("#first-train-time").val("");
+        $("#frequency").val("");
+    });
 });
 
-// database.ref().on("child_added", function(childSnapshot) {
-//     console.log(childSnapshot.val());
-  
-//     // Store everything into a variable.
-//     var empName = childSnapshot.val().name;
-//     var empRole = childSnapshot.val().role;
-//     var empStart = childSnapshot.val().start;
-//     var empRate = childSnapshot.val().rate;
-  
-//     // Employee Info
-//     console.log(empName);
-//     console.log(empRole);
-//     console.log(empStart);
-//     console.log(empRate);
-  
-//     // Prettify the employee start
-//     var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
-  
-//     // Calculate the months worked using hardcore math
-//     // To calculate the months worked
-//     var empMonths = moment().diff(moment(empStart, "X"), "months");
-//     console.log(empMonths);
-  
-//     // Calculate the total billed rate
-//     var empBilled = empMonths * empRate;
-//     console.log(empBilled);
-  
-//     // Create the new row
-//     var newRow = $("<tr>").append(
-//       $("<td>").text(empName),
-//       $("<td>").text(empRole),
-//       $("<td>").text(empStartPretty),
-//       $("<td>").text(empMonths),
-//       $("<td>").text(empRate),
-//       $("<td>").text(empBilled)
-//     );
-  
-//     // Append the new row to the table
-//     $("#employee-table > tbody").append(newRow);
-//   });
+
+database.ref().on("child_added", function (childSnapshot) {
+    console.log(childSnapshot.val());
+
+    var trainName = childSnapshot.val().name;
+    var trainDestination = childSnapshot.val().destination;
+    var firstTrain = childSnapshot.val().time;
+    var frequency = childSnapshot.val().frequency;
+
+    console.log(trainName);
+    console.log(trainDestination);
+    console.log(firstTrain);
+    console.log(frequency);
+
+    var currentTime = moment("HH:mm");
+    console.log(currentTime);
+
+    var diffTime = moment().diff(moment(firstTrain), "minutes");
+
+    var diffTimeRemainder = diffTime % frequency;
+
+    var minutesAway = frequency - diffTimeRemainder;
+
+    var nextArrival = moment().add(minutesAway, 'm').format('hh:mm A');
+
+    var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
+        $("<td>").text(trainDestination),
+        $("<td>").text(frequency),
+        $("<td>").text(nextArrival),
+        $("<td>").text(minutesAway),
+    );
+
+    $("#train-table > tbody").append(newRow);
+});
